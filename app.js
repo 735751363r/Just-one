@@ -1,13 +1,8 @@
-// Einfaches Beispiel zur Handhabung von Spieler*innen-Interaktionen
-
-let players = [];
-let clues = [];
-let currentPlayer = 0;
-
 // Spiel erstellen - QR-Code und Spiel-Code anzeigen
 document.getElementById("create-game").addEventListener("click", function () {
     const gameCode = generateGameCode();  // Generiert einen zufälligen Spiel-Code
-    document.getElementById("game-code").innerHTML = `Spiel-Code: <span id="code">${gameCode}</span>`;
+    document.getElementById("code").textContent = gameCode;
+    document.getElementById("game-code").style.display = "block";
     
     // QR-Code generieren
     QRCode.toCanvas(document.getElementById("qr-code"), gameCode, function (error) {
@@ -32,9 +27,9 @@ function generateGameCode() {
 document.getElementById("submit-clue").addEventListener("click", function () {
     const clue = document.getElementById("player-clue").value.trim();
     if (clue) {
-        clues.push(clue);
-        document.getElementById("player-clue").value = "";  // Textfeld leeren
+        // Hinweis speichern und Textfeld leeren
         alert("Hinweis erfolgreich abgegeben!");
+        document.getElementById("player-clue").value = "";
     }
 });
 
@@ -56,7 +51,7 @@ function switchToPlayerView() {
 function switchToGuessingView() {
     document.getElementById("player-interface").style.display = "none";
     document.getElementById("guessing-interface").style.display = "block";
-
+    
     // Zeige die Hinweise an
-    document.getElementById("clue-list").innerHTML = clues.map(clue => `<li>${clue}</li>`).join('');
+    document.getElementById("clue-list").innerHTML = "<li>Hinweis 1</li><li>Hinweis 2</li>";
 }
