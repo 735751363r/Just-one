@@ -1,11 +1,14 @@
 // Spiel erstellen - QR-Code und Spiel-Code anzeigen
 document.getElementById("create-game").addEventListener("click", function () {
     const gameCode = generateGameCode();  // Generiert einen zufälligen Spiel-Code
-    document.getElementById("code").textContent = gameCode;
-    document.getElementById("game-code").style.display = "block";
+    document.getElementById("game-code").textContent = gameCode;
+    document.getElementById("game-code-container").style.display = "block";
     
     // QR-Code generieren
-    QRCode.toCanvas(document.getElementById("qr-code"), gameCode, function (error) {
+    const qrCodeContainer = document.getElementById("qr-code");
+    qrCodeContainer.innerHTML = "";  // Vorherigen QR-Code entfernen (falls vorhanden)
+    
+    QRCode.toCanvas(qrCodeContainer, gameCode, function (error) {
         if (error) console.error(error);
         console.log("QR Code generiert!");
     });
