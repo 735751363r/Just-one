@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Demo</title>
+    <title>QR-Code Demo</title>
     <!-- QRCode.js Bibliothek -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
@@ -25,11 +25,14 @@
 
             // QR-Code mit dem Spiel-Code generieren
             QRCode.toCanvas(qrCodeContainer, gameCode, function (error) {
-                if (error) console.error(error);
-                else console.log("QR-Code erfolgreich generiert!");
+                if (error) {
+                    console.error("Fehler bei der QR-Code Generierung:", error);
+                    return; // Fehler abfangen und verhindern, dass der Code weiter läuft
+                }
+                console.log("QR-Code erfolgreich generiert!");
 
-                // Spielcode anzeigen
-                alert("Spielcode: " + gameCode);
+                // Spielcode in der Konsole anzeigen
+                console.log("Spielcode:", gameCode);
             });
         });
 
