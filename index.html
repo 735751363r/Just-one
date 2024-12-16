@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Just One Web-App</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- QRCode.js Bibliothek einbinden -->
+    <!-- QRCode.js-Bibliothek -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
 <body>
@@ -18,32 +18,7 @@
         <div id="host-dashboard" class="game-panel">
             <h2>Lehrer Dashboard</h2>
             <button id="create-game" class="btn">Spiel erstellen</button>
-            <div id="game-code-container" style="display:none;">
+            <div id="game-code-container" style="display: none;">
                 <p>Spiel-Code: <span id="game-code"></span></p>
-                <div id="qr-code"></div>  <!-- Hier wird der QR-Code angezeigt -->
-            </div>
-        </div>
-
-        <!-- Spieler Interface -->
-        <div id="player-interface" class="game-panel" style="display: none;">
-            <h2>Gib deinen Hinweis ein</h2>
-            <textarea id="player-clue" placeholder="Gib deinen Hinweis ein..."></textarea>
-            <button id="submit-clue" class="btn">Hinweis abschicken</button>
-        </div>
-
-        <!-- Spielansicht für den Ratenden -->
-        <div id="guessing-interface" class="game-panel" style="display: none;">
-            <h2>Ratender sieht Hinweise</h2>
-            <ul id="clue-list"></ul>
-            <input type="text" id="guess" placeholder="Was ist der Begriff?">
-            <button id="submit-guess" class="btn">Antwort abschicken</button>
-        </div>
-        
-        <footer>
-            <p>&copy; 2024 Just One Web-App</p>
-        </footer>
-    </div>
-
-    <script src="app.js"></script>
-</body>
-</html>
+                <div id="qr-code"></div> <!-- QR-Code wird hier angezeigt -->
+            </
