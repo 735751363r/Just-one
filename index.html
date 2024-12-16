@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just One Web-App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Just One: Digital</h1>
+        </header>
+        
+        <!-- Dashboard für den Host -->
+        <div id="host-dashboard" class="game-panel">
+            <h2>Lehrer Dashboard</h2>
+            <button id="create-game" class="btn">Spiel erstellen</button>
+            <div id="qr-code"></div>
+            <div id="game-code">Spiel-Code: <span id="code">ABC123</span></div>
+        </div>
+
+        <!-- Spieler Interface -->
+        <div id="player-interface" class="game-panel" style="display: none;">
+            <h2>Gib deinen Hinweis ein</h2>
+            <textarea id="player-clue" placeholder="Gib deinen Hinweis ein..."></textarea>
+            <button id="submit-clue" class="btn">Hinweis abschicken</button>
+        </div>
+
+        <!-- Spielansicht für den Ratenden -->
+        <div id="guessing-interface" class="game-panel" style="display: none;">
+            <h2>Ratender sieht Hinweise</h2>
+            <ul id="clue-list"></ul>
+            <input type="text" id="guess" placeholder="Was ist der Begriff?">
+            <button id="submit-guess" class="btn">Antwort abschicken</button>
+        </div>
+        
+        <footer>
+            <p>&copy; 2024 Just One Web-App</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
