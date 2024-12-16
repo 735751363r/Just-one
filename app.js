@@ -6,11 +6,27 @@ let currentPlayer = 0;
 
 // Spiel erstellen - QR-Code und Spiel-Code anzeigen
 document.getElementById("create-game").addEventListener("click", function () {
-    document.getElementById("qr-code").innerHTML = "<img src='https://via.placeholder.com/150' alt='QR-Code'>"; // Hier könnte ein echter QR-Code sein.
-    document.getElementById("game-code").style.display = "block";
-    players.push("Lehrer");  // Beispiel: Lehrer als Teilnehmer
+    const gameCode = generateGameCode();  // Generiert einen zufälligen Spiel-Code
+    document.getElementById("game-code").innerHTML = `Spiel-Code: <span id="code">${gameCode}</span>`;
+    
+    // QR-Code generieren
+    QRCode.toCanvas(document.getElementById("qr-code"), gameCode, function (error) {
+        if (error) console.error(error);
+        console.log("QR Code generiert!");
+    });
+
     alert("Spiel gestartet! Spieler können sich mit dem QR-Code eintragen.");
 });
+
+// Funktion zum Generieren eines zufälligen Spiel-Codes
+function generateGameCode() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let gameCode = '';
+    for (let i = 0; i < 6; i++) {
+        gameCode += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return gameCode;
+}
 
 // Spieler geben ihren Hinweis ein
 document.getElementById("submit-clue").addEventListener("click", function () {
