@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR-Code Demo</title>
-    <!-- QRCode.js Bibliothek -->
+    <title>QR-Code Generator</title>
+    <!-- Einbindung der QRCode.js Bibliothek -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 </head>
 <body>
-    <h1>QR-Code Demo</h1>
-
-    <div id="qr-code-container"></div> <!-- Hier wird der QR-Code angezeigt -->
-
-    <button id="generate-qr">QR-Code generieren</button>
+    <h1>QR-Code Generator</h1>
+    
+    <!-- Container für den QR-Code -->
+    <div id="qr-code-container" style="margin: 20px auto; width: 200px; height: 200px; border: 1px solid #ccc;">
+        <!-- Hier wird der QR-Code eingefügt -->
+    </div>
+    
+    <!-- Button, um den QR-Code zu generieren -->
+    <button onclick="generateQRCode()">QR-Code generieren</button>
 
     <script>
-        // Funktion zur QR-Code Generierung
-        document.getElementById("generate-qr").addEventListener("click", function() {
-            const gameCode = generateGameCode();  // Spiel-Code generieren
-            const qrCodeContainer = document.getElementById("qr-code-container");
-
-            // Vorherigen QR-Code entfernen, falls vorhanden
-            qrCodeContainer.innerHTML = ""; 
-
-            // QR-Code mit dem Spiel-Code generieren
-            QRCode.toCanvas(qrCodeContainer, gameCode, function (error) {
-                if (error) {
-                    console.error("Fehler bei der QR-Code Generierung:", error);
-                    return; // Fehler abfangen und verhindern, dass der Code weiter läuft
-                }
-                console.log("QR-Code erfolgreich generiert!");
-
-                // Spielcode in der Konsole anzeigen
-                console.log("Spielcode:", gameCode);
-            });
-        });
-
-        // Funktion zum Generieren eines zufälligen Spielcodes
+        // Funktion zur Generierung eines Spielcodes
         function generateGameCode() {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let gameCode = '';
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let gameCode = "";
             for (let i = 0; i < 6; i++) {
-                gameCode += characters.charAt(Math.floor(Math.random() * characters.length));
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                gameCode += characters[randomIndex];
             }
             return gameCode;
+        }
+
+        // Funktion zur Generierung des QR-Codes
+        function generateQRCode() {
+            const container = document.getElementById("qr-code-container");
+
+            // Den Container leeren, um alte QR-Codes zu entfernen
+            container.innerHTML = "";
+
+            // Spielcode generieren
+            const gameCode = generateGameCode();
+            console.log("Generierter Spielcode:", gameCode); // Debug-Ausgabe
+
+            // Sicherstellen, dass der Spielcode nicht leer ist
+            if (!gameCode) {
+                console.error("Spielcode ist ungültig.");
+                alert("Fehler bei der Spielcode-Generierung!");
+                return;
+            }
+
+            // QR-Code generieren und einfügen
+            QRCode.toCanvas(gameCode, { width: 200 }, function (error, canvas) {
+                if (error) {
+                    console.error("Fehler beim Generieren des QR-Codes:", error);
+                    alert("Fehler bei der QR-Code Generierung!");
+                    return;
+                }
+                container.appendChild(canvas); // QR-Code hinzufügen
+            });
         }
     </script>
 </body>
