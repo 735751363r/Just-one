@@ -1,0 +1,7 @@
+const WORDS = [
+    "HUND", "KATZE", "MAUS", "SONNE", "MOND", "STERN", "BAUM", "HAUS", "AUTO",
+    "SCHULE", "BUCH", "TISCH", "STUHL", "FENSTER", "TÜR", "COMPUTER", "TELEFON",
+    "GARTEN", "BLUME", "WASSER", "FEUER", "ERDE", "LUFT", "BERG", "STRAND",
+    "MEER", "FLUSS", "WALD", "WIESE", "STADT", "DORF", "STRASSE", "BROT",
+    "KÄSE", "MILCH", "KAFFEE", "TEE", "ZUCKER", "SALZ", "PFEFFER"
+];
