@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuer QR-Code Generator</title>
-    <!-- Einbindung der qrious-Bibliothek -->
+    <title>Just One - Spiel Lobby</title>
+    <!-- Qrious-Bibliothek für QR-Code -->
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/qrious.min.js"></script>
 </head>
 <body>
-    <h1>Neuer QR-Code Generator</h1>
-    
-    <!-- Anzeige des QR-Codes -->
-    <canvas id="qr-code"></canvas>
-    
-    <!-- Button zur Generierung -->
-    <button onclick="generateQRCode()">QR-Code generieren</button>
+    <h1>Willkommen bei Just One</h1>
+    <h2>Spiel-Lobby</h2>
+
+    <!-- Anzeige des Spielcodes -->
+    <p>Dein Spielcode: <strong id="game-code-display"></strong></p>
+
+    <!-- QR-Code Anzeige -->
+    <canvas id="qr-code" style="border: 1px solid #ccc; margin-bottom: 20px;"></canvas>
+
+    <!-- Button zur Generierung des Spielcodes -->
+    <button onclick="setupGame()">Neues Spiel starten</button>
+
+    <!-- Eingabefeld für Spieler -->
+    <h3>Spiel beitreten</h3>
+    <input type="text" id="player-code-input" placeholder="Spielcode eingeben">
+    <button onclick="joinGame()">Beitreten</button>
+
+    <!-- Ergebnisanzeige -->
+    <p id="join-message"></p>
 
     <script>
-        // Funktion zur Generierung eines zufälligen Spielcodes
+        let gameCode = ""; // Variable zur Speicherung des Spielcodes
+
+        // Funktion zum Generieren eines Spielcodes
         function generateGameCode() {
             const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let code = "";
@@ -27,19 +41,33 @@
             return code;
         }
 
-        // Funktion zur Generierung des QR-Codes
-        function generateQRCode() {
-            const gameCode = generateGameCode();
-            console.log("Generierter Spielcode:", gameCode);
+        // Spiel-Setup: Code generieren und QR-Code anzeigen
+        function setupGame() {
+            // Spielcode generieren
+            gameCode = generateGameCode();
+            document.getElementById("game-code-display").textContent = gameCode;
 
-            // Erstellen eines neuen QR-Codes mit qrious
+            // QR-Code erstellen
             const qr = new QRious({
                 element: document.getElementById("qr-code"),
-                value: gameCode,  // Der Spielcode als Inhalt des QR-Codes
-                size: 200         // Größe des QR-Codes
+                value: gameCode,  // Spielcode als QR-Code-Inhalt
+                size: 200
             });
 
-            console.log("QR-Code erfolgreich generiert!");
+            console.log("Neues Spiel gestartet. Spielcode:", gameCode);
+        }
+
+        // Spieler tritt dem Spiel bei
+        function joinGame() {
+            const playerCode = document.getElementById("player-code-input").value.trim();
+
+            if (playerCode === gameCode) {
+                document.getElementById("join-message").textContent = "Erfolgreich dem Spiel beigetreten! 🎉";
+                document.getElementById("join-message").style.color = "green";
+            } else {
+                document.getElementById("join-message").textContent = "Falscher Spielcode. Bitte erneut versuchen.";
+                document.getElementById("join-message").style.color = "red";
+            }
         }
     </script>
 </body>
