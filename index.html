@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Just One - Spiellobby</title>
-    <!-- Qrious-Bibliothek -->
+    <!-- Qrious-Bibliothek laden -->
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/qrious.min.js"></script>
 </head>
 <body>
@@ -13,16 +13,17 @@
     <!-- Spielcode-Anzeige -->
     <p>Dein Spielcode: <strong id="game-code-display">Noch kein Code</strong></p>
 
-    <!-- QR-Code Canvas -->
+    <!-- QR-Code Anzeige -->
     <canvas id="qr-code" style="border: 1px solid #000; width: 200px; height: 200px;"></canvas>
 
-  
+    <!-- Button zum Spielstart -->
+    <button onclick="startGame()">Spiel starten</button>
 
-    <!-- JavaScript-Code -->
+    <!-- JavaScript zur Generierung -->
     <script>
-        let gameCode = ""; // Variable zur Speicherung des Spielcodes
+        let gameCode = ""; // Variable zum Speichern des Spielcodes
 
-        // Funktion zur Generierung eines zufälligen Spielcodes
+        // Funktion zur Generierung eines zufälligen Codes
         function generateGameCode() {
             const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let code = "";
@@ -32,7 +33,7 @@
             return code;
         }
 
-        // Funktion zum Starten des Spiels
+        // Funktion zum Starten des Spiels und Erzeugen des QR-Codes
         function startGame() {
             // Spielcode generieren
             gameCode = generateGameCode();
@@ -45,7 +46,7 @@
             try {
                 const qr = new QRious({
                     element: document.getElementById("qr-code"), // Canvas-Element
-                    value: gameCode,                             // Inhalt des QR-Codes
+                    value: gameCode,                             // QR-Code Inhalt
                     size: 200                                    // Größe des QR-Codes
                 });
                 console.log("QR-Code erfolgreich generiert!");
@@ -54,10 +55,5 @@
             }
         }
     </script>
-
-      <!-- Button zum Starten des Spiels -->
-    <br>
-    <button onclick="startGame()">Neues Spiel starten</button>
-    
 </body>
 </html>
