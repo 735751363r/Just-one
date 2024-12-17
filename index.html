@@ -1,34 +1,42 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Just One - Online</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- ... (head bleibt gleich) ... -->
 </head>
 <body>
     <div id="app">
         <div id="start-screen" class="screen">
             <h1>Just One - Online</h1>
-            <button onclick="createGame()">Spiel erstellen</button>
-            <button onclick="showJoinGame()">Spiel beitreten</button>
+            <button id="create-game-btn">Spiel erstellen</button>
+            <button id="show-join-btn">Spiel beitreten</button>
         </div>
 
         <div id="join-screen" class="screen hidden">
             <h2>Spiel beitreten</h2>
             <input type="text" id="game-code" placeholder="Spielcode eingeben">
             <input type="text" id="player-name" placeholder="Dein Name">
-            <button onclick="joinGame()">Beitreten</button>
+            <button id="join-game-btn">Beitreten</button>
         </div>
 
         <div id="game-screen" class="screen hidden">
             <h2>Spielraum: <span id="room-code"></span></h2>
             <div id="qrcode"></div>
             <div id="players-list"></div>
-            <div id="game-area"></div>
+            <div id="game-area">
+                <div id="word-display" class="hidden"></div>
+                <div id="hint-input-area" class="hidden">
+                    <input type="text" id="hint-input" placeholder="Gib deinen Hinweis ein">
+                    <button id="submit-hint-btn">Hinweis abgeben</button>
+                </div>
+                <div id="guess-area" class="hidden">
+                    <input type="text" id="guess-input" placeholder="Rate das Wort">
+                    <button id="submit-guess-btn">Raten</button>
+                </div>
+                <button id="start-round-btn" class="hidden">Neue Runde starten</button>
+            </div>
         </div>
     </div>
+    <script src="js/words.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>
