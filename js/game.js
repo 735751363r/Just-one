@@ -134,39 +134,47 @@ class JustOneGame {
         return this.gameState.players.find(p => p.id === playerId);
     }
 
-    updateGameArea() {
-        const gameArea = document.getElementById('game-area');
-        const wordDisplay = document.getElementById('word-display');
-        const hintArea = document.getElementById('hint-input-area');
-        const guessArea = document.getElementById('guess-area');
-        const startRoundBtn = document.getElementById('start-round-btn');
+  // In der updateGameArea Methode, ändern wir den 'giving-hints' Fall:
+updateGameArea() {
+    const gameArea = document.getElementById('game-area');
+    const wordDisplay = document.getElementById('word-display');
+    const hintArea = document.getElementById('hint-input-area');
+    const guessArea = document.getElementById('guess-area');
+    const startRoundBtn = document.getElementById('start-round-btn');
 
-        wordDisplay.classList.add('hidden');
-        hintArea.classList.add('hidden');
-        guessArea.classList.add('hidden');
-        startRoundBtn.classList.add('hidden');
+    // Alles ausblenden
+    wordDisplay.classList.add('hidden');
+    hintArea.classList.add('hidden');
+    guessArea.classList.add('hidden');
+    startRoundBtn.classList.add('hidden');
 
-        switch (this.gameState.phase) {
-            case 'waiting':
-                startRoundBtn.classList.remove('hidden');
-                break;
-            case 'giving-hints':
-                if (this.getCurrentPlayer().id !== this.gameState.activePlayer.id) {
-                    wordDisplay.textContent = `Das Wort ist: ${this.gameState.currentWord}`;
-                    wordDisplay.classList.remove('hidden');
-                    hintArea.classList.remove('hidden');
-                }
-                break;
-            case 'guessing':
-                if (this.getCurrentPlayer().id === this.gameState.activePlayer.id) {
-                    guessArea.classList.remove('hidden');
-                    const hints = Object.values(this.gameState.hints);
-                    wordDisplay.textContent = `Hinweise: ${hints.join(', ')}`;
-                    wordDisplay.classList.remove('hidden');
-                }
-                break;
-        }
+    switch (this.gameState.phase) {
+        case 'waiting':
+            startRoundBtn.classList.remove('hidden');
+            break;
+        case 'giving-hints':
+            const currentPlayer = this.getCurrentPlayer();
+            if (currentPlayer && currentPlayer.id !== this.gameState.activePlayer.id) {
+                // Hier zeigen wir das Wort den Hinweisgebern
+                wordDisplay.textContent = `Umschreibe das Wort: ${this.gameState.currentWord}`;
+                wordDisplay.classList.remove('hidden');
+                hintArea.classList.remove('hidden');
+            } else {
+                // Der aktive Spieler sieht eine Wartemeldung
+                wordDisplay.textContent = "Die anderen Spieler schreiben Hinweise...";
+                wordDisplay.classList.remove('hidden');
+            }
+            break;
+        case 'guessing':
+            if (this.getCurrentPlayer().id === this.gameState.activePlayer.id) {
+                guessArea.classList.remove('hidden');
+                const hints = Object.values(this.gameState.hints);
+                wordDisplay.textContent = `Hinweise: ${hints.join(', ')}`;
+                wordDisplay.classList.remove('hidden');
+            }
+            break;
     }
+}
 
     updatePlayersList() {
         const playersList = document.getElementById('players-list');
