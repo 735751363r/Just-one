@@ -165,23 +165,27 @@ startNewRound() {
         console.log('New round started. Word:', this.gameState.currentWord);
     }
 
-    submitHint() {
-        const currentPlayer = this.getCurrentPlayer();
-        if (currentPlayer.id === this.gameState.activePlayer.id) return;
-
-        const hint = document.getElementById('hint-input').value.toUpperCase();
-        this.gameState.hints[currentPlayer.id] = hint;
-        document.getElementById('hint-input').value = '';
-        
-        if (Object.keys(this.gameState.hints).length === this.gameState.players.length - 1) {
-            this.filterDuplicateHints();
-            this.gameState.phase = 'guessing';
-        }
-        
-        this.saveState();
-        this.updateGameArea();
+submitHint() {
+    const currentPlayer = this.getCurrentPlayer();
+    if (!currentPlayer) {
+        console.log('No current player found');
+        return;
     }
+    
+    if (currentPlayer.id === this.gameState.activePlayer?.id) return;
 
+    const hint = document.getElementById('hint-input').value.toUpperCase();
+    this.gameState.hints[currentPlayer.id] = hint;
+    document.getElementById('hint-input').value = '';
+    
+    if (Object.keys(this.gameState.hints).length === this.gameState.players.length - 1) {
+        this.filterDuplicateHints();
+        this.gameState.phase = 'guessing';
+    }
+    
+    this.saveState();
+    this.updateGameArea();
+}
     filterDuplicateHints() {
         const hints = Object.values(this.gameState.hints);
         const uniqueHints = {};
