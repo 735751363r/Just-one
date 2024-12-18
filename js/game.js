@@ -108,7 +108,36 @@ constructor() {
         alert('Spielraum nicht gefunden!');
         return false;
     }
+loadState(roomCode) {
+    const savedState = localStorage.getItem(roomCode);
+    if (savedState) {
+        this.gameState = JSON.parse(savedState);
+        console.log('Loaded state:', this.gameState); // Debug output
+        this.updateGameArea();
+        this.updatePlayersList();
+        return true;
+    }
+    return false;
+}
 
+startNewRound() {
+    if (this.gameState.players.length < 3) {
+        alert('Mindestens 3 Spieler werden benötigt!');
+        return;
+    }
+
+    // Force word selection and save
+    this.gameState.currentWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    const randomPlayerIndex = Math.floor(Math.random() * this.gameState.players.length);
+    this.gameState.activePlayer = this.gameState.players[randomPlayerIndex];
+    this.gameState.phase = 'giving-hints';
+    this.gameState.hints = {};
+    
+    console.log('Starting round with word:', this.gameState.currentWord); // Debug output
+    
+    this.saveState();
+    this.updateGameArea();
+}
     startNewRound() {
             startNewRound() {
         console.log('Starting new round');
