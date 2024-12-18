@@ -10,6 +10,32 @@ class JustOneGame {
             score: 0
         };
         this.setupEventListeners();
+
+    // Add this method to the JustOneGame class
+setupAutoRefresh() {
+    setInterval(() => {
+        if (this.gameState.roomCode) {
+            this.loadState(this.gameState.roomCode);
+            this.updateGameArea();
+            this.updatePlayersList();
+        }
+    }, 2000); // Refresh every 2 seconds
+}
+
+// Modify the constructor
+constructor() {
+    this.gameState = {
+        roomCode: '',
+        players: [],
+        activePlayer: null,
+        currentWord: '',
+        hints: {},
+        phase: 'waiting',
+        score: 0
+    };
+    this.setupEventListeners();
+    this.setupAutoRefresh(); // Add this line
+}
     }
 
     setupEventListeners() {
@@ -84,6 +110,12 @@ class JustOneGame {
     }
 
     startNewRound() {
+            startNewRound() {
+        console.log('Starting new round');
+        if (this.gameState.players.length < 3) {
+            alert('Mindestens 3 Spieler werden benötigt!');
+            return;
+        }
         if (this.gameState.players.length < 3) {
             alert('Mindestens 3 Spieler werden benötigt!');
             return;
@@ -154,6 +186,10 @@ class JustOneGame {
     }
 
     updateGameArea() {
+            updateGameArea() {
+        console.log('Current game state:', this.gameState);
+        console.log('Current player:', this.getCurrentPlayer());
+        const wordDisplay = document.getElementById('word-display');
         const wordDisplay = document.getElementById('word-display');
         const hintArea = document.getElementById('hint-input-area');
         const guessArea = document.getElementById('guess-area');
